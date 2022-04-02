@@ -76,5 +76,19 @@ module B2
       }
       post(upload_auth['uploadUrl'], payload)
     end
+
+    def update_file_retention(file_name, file_id, mode, retain_until_timestamp, options = {})
+      payload = {
+        body: {
+          fileName: file_name,
+          fileId: file_id,
+          fileRetention: {
+            mode: mode,
+            retainUntilTimestamp: retain_until_timestamp
+          }
+        }.merge(options).to_json
+      }
+      post("#{config.api_url}/b2api/v2/b2_update_file_retention", payload)
+    end
   end
 end
